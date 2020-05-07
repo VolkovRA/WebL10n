@@ -142,17 +142,29 @@ class Texts
     /////////////////
 
     /**
-     * Добавить словарь.
-     * Предыдущий словарь для указанной `localization` **удаляется**, если он был.
-     * @param dictionary Словарь текстовых сообщений для указанной локализации.
+     * Добавить слова.
+     * Заносит в словарь указанной локализации новые текстовые данные, обновляет старые.
+     * - Тексты с одинаковым ID заменяются.
+     * - Этот метод не изменяет переданный `dictionary`.
+     * @param dictionary Словарь текстовых сообщений.
      * @param localization ID Локализации.
      */
-    public function add(dictionary:Dictionary, localization:LocalizationID):Void {
-        if (localization == null)
+     public function add(dictionary:Dictionary, localization:LocalizationID):Void {
+        if (dictionary == null || localization == null)
             return;
+
+        var dic:Dictionary = data[untyped localization];
+        if (dic == dictionary)
+            return;
+
+        if (dic == null) {
+            dic = {};
+            data[untyped localization] = dictionary;
+        }
         
-        data[untyped localization] = dictionary;
+        Syntax.code("for (var key in {0}) { {1}[key] = {0}[key]; }", dictionary, dic);
     }
+
 
     /**
      * Получить текст.
