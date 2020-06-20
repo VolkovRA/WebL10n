@@ -80,7 +80,7 @@ class Texts
             }
 
             // Строка:
-            var row = data.substring(i, n);
+            var row = data.substring(i, n - 1);
 
             // Пропуск строки без разделителя:
             var s = row.indexOf(sep);
