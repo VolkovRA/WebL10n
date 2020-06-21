@@ -71,7 +71,7 @@ class Texts
         while (i < data.length) {
             var n = data.indexOf("\n", i);
             if (n == -1)
-                n = data.length;
+                n = data.length + 1;
             
             // Пропуск комментария:
             if (data.charAt(i) == "#") {
